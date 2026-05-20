@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Airplane Hangar Dinner — Javier Skipper</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --void:      #f8f4ee;
+  --deep:      #f0e8d8;
+  --stone:     #e4d8c4;
+  --amber:     #7a5218;
+  --amber-lt:  #c8943a;
+  --amber-dim: #b07a38;
+  --linen:     #1e1408;
+  --linen-dim: #5a4020;
+  --dust:      #c8b89a;
+  --rule:      #d8ccb8;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--void);
+  color: var(--linen);
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  padding: 1.25rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 100;
+  background: rgba(248,244,238,.97);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-back {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--amber); text-decoration: none;
+  transition: gap .3s;
+}
+.nav-back:hover { gap: 14px; }
+.nav-back::before { content: '←'; font-size: 12px; }
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 14px;
+  letter-spacing: .22em; color: var(--linen-dim);
+  text-decoration: none; text-transform: uppercase;
+}
+.nav-project {
+  font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dust);
+}
+
+/* ── REVEAL ──────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── HERO ────────────────────────────────────────────────────────── */
+.hero {
+  width: 100%; height: 100vh;
+  position: relative; overflow: hidden;
+  margin-top: 0;
+}
+.hero img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center center;
+  filter: brightness(.92);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    transparent 40%,
+    rgba(248,244,238,.7) 80%,
+    var(--void) 100%);
+}
+.hero-content {
+  position: absolute; bottom: 5rem; left: 4rem;
+  max-width: 640px;
+}
+.hero-eyebrow {
+  font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 1rem;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.1; color: var(--linen);
+  margin-bottom: 1rem;
+}
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-style: italic;
+  color: var(--linen-dim);
+}
+
+/* ── CONTENT WRAPPER ────────────────────────────────────────────── */
+.content { max-width: 960px; margin: 0 auto; padding: 0 3rem 6rem; }
+
+/* ── META BLOCK ─────────────────────────────────────────────────── */
+.meta-block {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; padding: 3rem 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 4rem;
+}
+.meta-item {}
+.meta-label {
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--dust); margin-bottom: .5rem;
+}
+.meta-value {
+  font-size: 13px; color: var(--linen-dim);
+  font-weight: 300; line-height: 1.5;
+}
+
+/* ── SECTION HEADERS ─────────────────────────────────────────────── */
+.section-eyebrow {
+  font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: .75rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(24px, 3vw, 36px);
+  color: var(--linen); margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+.section-body {
+  font-size: 13px; line-height: 1.9;
+  color: var(--linen-dim); font-weight: 300;
+  max-width: 640px; margin-bottom: 1rem;
+}
+.section-rule {
+  border: none; border-top: 1px solid var(--rule);
+  margin: 4rem 0;
+}
+
+/* ── OBJECTIVES ─────────────────────────────────────────────────── */
+.objectives {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin: 2rem 0 3rem;
+}
+.objective {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--rule);
+  background: var(--deep);
+}
+.obj-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; color: var(--amber-dim);
+  flex-shrink: 0; line-height: 1;
+}
+.obj-text {
+  font-size: 12px; line-height: 1.7;
+  color: var(--linen-dim); font-weight: 300;
+}
+
+/* ── IMAGE GRID — CONCEPT ───────────────────────────────────────── */
+.grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin: 2rem 0;
+}
+.grid-3 {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px; margin: 2rem 0;
+}
+.grid-full { margin: 2rem 0; }
+.grid-asymmetric {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px; margin: 2rem 0;
+}
+.grid-asymmetric-r {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 12px; margin: 2rem 0;
+}
+
+.img-frame {
+  overflow: hidden; position: relative;
+  background: var(--stone);
+}
+.img-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .8s ease;
+}
+.img-frame:hover img { transform: scale(1.03); }
+.img-frame.tall { min-height: 400px; }
+.img-frame.medium { min-height: 280px; }
+.img-frame.short { min-height: 200px; }
+.img-frame.hero-full { min-height: 520px; }
+
+/* image placeholder styling */
+.img-placeholder {
+  width: 100%; height: 100%; min-height: inherit;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; background: var(--stone);
+  padding: 1.5rem;
+}
+.img-placeholder span {
+  font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--dust);
+  text-align: center;
+}
+.img-placeholder code {
+  font-size: 8px; color: var(--amber-dim);
+  background: var(--deep); padding: 3px 8px;
+  letter-spacing: .06em;
+}
+
+/* ── PHOTO CREDIT ───────────────────────────────────────────────── */
+.photo-credit {
+  font-size: 9px; letter-spacing: .1em;
+  color: var(--dust); text-align: right;
+  margin-top: 8px; font-style: italic;
+}
+
+/* ── QUOTES ──────────────────────────────────────────────────────── */
+.quotes-section { padding: 4rem 0; }
+.quotes-header { margin-bottom: 3rem; }
+.quotes-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 2px;
+}
+.quote-block {
+  padding: 3rem 3.5rem;
+  background: var(--deep);
+  border-left: 3px solid var(--amber);
+  position: relative;
+  transition: background .4s;
+}
+.quote-block:hover { background: var(--stone); }
+.quote-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px; line-height: .6;
+  color: var(--amber-dim); opacity: .4;
+  position: absolute; top: 2rem; left: 2.5rem;
+  pointer-events: none;
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(18px, 2.5vw, 26px);
+  font-style: italic; line-height: 1.55;
+  color: var(--linen); margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+.quote-attr {
+  display: flex; align-items: center; gap: 1rem;
+}
+.quote-rule {
+  width: 24px; height: 1px;
+  background: var(--amber-dim);
+}
+.quote-name {
+  font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--amber);
+}
+
+/* ── OUTCOME ────────────────────────────────────────────────────── */
+.outcome-block {
+  background: var(--deep); border: 1px solid var(--rule);
+  padding: 3rem; margin: 2rem 0;
+}
+.outcome-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 22px;
+  color: var(--linen); margin-bottom: 1rem;
+}
+.outcome-body {
+  font-size: 13px; line-height: 1.9;
+  color: var(--linen-dim); font-weight: 300;
+}
+
+/* ── NEXT PROJECT ───────────────────────────────────────────────── */
+.next-project {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 3rem 0;
+  border-top: 1px solid var(--rule);
+  text-decoration: none;
+  transition: opacity .3s;
+}
+.next-project:hover { opacity: .7; }
+.next-label {
+  font-size: 9px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--dust);
+  margin-bottom: .5rem;
+}
+.next-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 24px;
+  color: var(--linen); font-style: italic;
+}
+.next-arrow {
+  font-size: 28px; color: var(--amber-dim);
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer {
+  padding: 2rem 3rem;
+  border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between;
+  align-items: center; background: var(--void);
+}
+.footer-name {
+  font-size: 9px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--amber-dim);
+}
+.footer-copy { font-size: 9px; color: var(--dust); }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-project { display: none; }
+  .hero-content { left: 1.5rem; right: 1.5rem; bottom: 3rem; }
+  .content { padding: 0 1.5rem 4rem; }
+  .meta-block { grid-template-columns: 1fr 1fr; }
+  .objectives { grid-template-columns: 1fr; }
+  .grid-2, .grid-asymmetric, .grid-asymmetric-r { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .quote-block { padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back">All Projects</a>
+  <a href="index.html" class="nav-logo">Javier Skipper</a>
+  <span class="nav-project">Hangar Dinner</span>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HERO                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <!-- UPLOAD: Save your hero image as "hangar-hero.jpg" in the same
+       GitHub folder as this HTML file, then replace the placeholder below -->
+  <img src="hangar-hero.jpg" alt="Luxury Airplane Hangar Dinner"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <div class="img-placeholder" style="display:none;height:100%;position:absolute;inset:0;">
+    <span>Hero image</span>
+    <code>hangar-hero.jpg</code>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content reveal">
+    <p class="hero-eyebrow">Estée Lauder Companies · 2025</p>
+    <h1 class="hero-title">Luxury Airplane<br>Hangar Dinner</h1>
+    <p class="hero-sub">A raw space, transformed into a sensorial journey.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- CONTENT                                                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="content">
+
+  <!-- META -->
+  <div class="meta-block reveal">
+    <div class="meta-item">
+      <div class="meta-label">Client</div>
+      <div class="meta-value">Estée Lauder Companies</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Creative Lead: Concept, Design, Execution</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Date</div>
+      <div class="meta-value">August 2025</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Scope</div>
+      <div class="meta-value">Concept · Atmosphere · Spatial Design · Production</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="reveal">
+    <p class="section-eyebrow">Project Overview</p>
+    <h2 class="section-title">Reimagining the corporate<br>dinner as immersive experience</h2>
+    <p class="section-body">
+      This bespoke closing dinner for Estée Lauder Companies transformed a raw airplane hangar into a sensorial journey of luxury and escape. From pitch to execution, I led the entire experience — curating a high-concept, opulent atmosphere through refined aesthetics, immersive details, and brand storytelling.
+    </p>
+    <p class="section-body">
+      The challenge was environmental: a raw industrial space with no inherent luxury. The solution was total — every surface, every sightline, every sensory detail designed to make guests forget where they were and feel entirely transported.
+    </p>
+  </div>
+
+  <!-- OBJECTIVES -->
+  <div class="objectives reveal">
+    <div class="objective">
+      <span class="obj-num">01</span>
+      <p class="obj-text">Reimagine the corporate dinner as an immersive branded experience — something no one at ELC had seen before.</p>
+    </div>
+    <div class="objective">
+      <span class="obj-num">02</span>
+      <p class="obj-text">Seamlessly integrate themes of beauty, aviation, and luxury hospitality into one coherent visual world.</p>
+    </div>
+    <div class="objective">
+      <span class="obj-num">03</span>
+      <p class="obj-text">Maintain elegance and functionality within the significant environmental constraints of a raw industrial space.</p>
+    </div>
+    <div class="objective">
+      <span class="obj-num">04</span>
+      <p class="obj-text">Strengthen team unity and reaffirm ELC's commitment to elevated, branded experiences for its people.</p>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- CONCEPT & MOODBOARDS -->
+  <div class="reveal">
+    <p class="section-eyebrow">01 · Concept & Moodboards</p>
+    <h2 class="section-title">The vision before<br>the build</h2>
+    <p class="section-body">
+      The concept began with a single question: what does it feel like to arrive somewhere extraordinary? The moodboards established the emotional register — opulent without being obvious, cinematic without being theatrical. Aviation as a metaphor for elevation, both literal and aspirational.
+    </p>
+  </div>
+
+  <div class="grid-2 reveal">
+    <div class="img-frame tall">
+      <img src="images/concept1.jpg" alt="Concept moodboard 1"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Concept moodboard 1</span><code>images/concept1.jpg</code></div>
+    </div>
+    <div class="img-frame tall">
+      <img src="images/concept2.jpg" alt="Concept moodboard 2"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Concept moodboard 2</span><code>images/concept2.jpg</code></div>
+    </div>
+  </div>
+
+  <div class="grid-3 reveal">
+    <div class="img-frame medium">
+      <img src="images/lights1.jpg" alt="Lighting concept 1"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Lighting concept 1</span><code>images/lights1.jpg</code></div>
+    </div>
+    <div class="img-frame medium">
+      <img src="images/lights2.jpg" alt="Lighting concept 2"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Lighting concept 2</span><code>images/lights2.jpg</code></div>
+    </div>
+    <div class="img-frame medium">
+      <img src="images/lights3.jpg" alt="Lighting concept 3"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Lighting concept 3</span><code>images/lights3.jpg</code></div>
+    </div>
+  </div>
+
+  <div class="grid-2 reveal">
+    <div class="img-frame medium">
+      <img src="images/mb1.jpg" alt="Moodboard detail 1"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Moodboard detail 1</span><code>images/mb1.jpg</code></div>
+    </div>
+    <div class="img-frame medium">
+      <img src="images/mb2.jpg" alt="Moodboard detail 2"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Moodboard detail 2</span><code>images/mb2.jpg</code></div>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ENVIRONMENT & LAYOUT -->
+  <div class="reveal">
+    <p class="section-eyebrow">02 · Environment & Layout</p>
+    <h2 class="section-title">Architecture of<br>the evening</h2>
+    <p class="section-body">
+      The floor plan was designed as an emotional arc — arrival, immersion, peak, and close. Every zone was considered: the entry moment, the sightline from each seat, the lighting temperature as the evening progressed, the placement of florals to draw the eye toward the stage.
+    </p>
+  </div>
+
+  <div class="grid-full reveal">
+    <div class="img-frame hero-full">
+      <img src="images/layout.jpg" alt="Event layout"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event layout / floor plan</span><code>images/layout.jpg</code></div>
+    </div>
+  </div>
+
+  <div class="grid-asymmetric reveal">
+    <div class="img-frame tall">
+      <img src="images/florals.jpg" alt="Floral design"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Floral design</span><code>images/florals.jpg</code></div>
+    </div>
+    <div class="img-frame tall">
+      <img src="images/snr.jpg" alt="Seating and setting"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Seating & setting</span><code>images/snr.jpg</code></div>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- PHOTOGRAPHY GALLERY -->
+  <div class="reveal">
+    <p class="section-eyebrow">03 · The Evening</p>
+    <h2 class="section-title">The room, alive</h2>
+    <p class="section-body">
+      When the lights came up and the space filled with people, the concept became real. Every decision made in the design phase — the scale, the color temperature, the table spacing, the stage sightlines — held exactly as intended.
+    </p>
+  </div>
+
+  <div class="grid-2 reveal">
+    <div class="img-frame tall">
+      <img src="images/env1.jpg" alt="Event photography 1"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 1</span><code>images/env1.jpg</code></div>
+    </div>
+    <div class="img-frame tall">
+      <img src="images/env2.jpg" alt="Event photography 2"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 2</span><code>images/env2.jpg</code></div>
+    </div>
+  </div>
+
+  <div class="grid-asymmetric-r reveal">
+    <div class="img-frame medium">
+      <img src="images/env3.jpg" alt="Event photography 3"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 3</span><code>images/env3.jpg</code></div>
+    </div>
+    <div class="img-frame medium">
+      <img src="images/env4.jpg" alt="Event photography 4"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 4</span><code>images/env4.jpg</code></div>
+    </div>
+  </div>
+
+  <div class="grid-3 reveal">
+    <div class="img-frame medium">
+      <img src="images/env5.jpg" alt="Event photography 5"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 5</span><code>images/env5.jpg</code></div>
+    </div>
+    <div class="img-frame medium">
+      <img src="images/env6.jpg" alt="Event photography 6"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 6</span><code>images/env6.jpg</code></div>
+    </div>
+    <div class="img-frame medium">
+      <img src="images/env7.jpg" alt="Event photography 7"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 7</span><code>images/env7.jpg</code></div>
+    </div>
+  </div>
+
+  <div class="grid-2 reveal">
+    <div class="img-frame medium">
+      <img src="images/env8.jpg" alt="Event photography 8"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 8</span><code>images/env8.jpg</code></div>
+    </div>
+    <div class="img-frame medium">
+      <img src="images/env9.jpg" alt="Event photography 9"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 9</span><code>images/env9.jpg</code></div>
+    </div>
+  </div>
+
+  <div class="grid-asymmetric reveal">
+    <div class="img-frame tall">
+      <img src="images/env10.jpg" alt="Event photography 10"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 10</span><code>images/env10.jpg</code></div>
+    </div>
+    <div class="img-frame tall">
+      <img src="images/env11.jpg" alt="Event photography 11"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder"><span>Event photo 11</span><code>images/env11.jpg</code></div>
+    </div>
+  </div>
+
+  <p class="photo-credit reveal">Photography by Nunzio Ruggerio, 2025</p>
+
+  <hr class="section-rule">
+
+  <!-- OUTCOME -->
+  <div class="reveal">
+    <p class="section-eyebrow">04 · Outcome & Reception</p>
+    <h2 class="section-title">A new benchmark<br>for ELC</h2>
+  </div>
+
+  <div class="outcome-block reveal">
+    <p class="outcome-body">
+      The event was met with exceptional praise and exceeded internal expectations across every measure. It set a new benchmark for experiential storytelling at Estée Lauder Companies — demonstrating that a corporate gathering could carry the same emotional weight as a luxury brand activation. The evening strengthened team unity and reaffirmed the brand's commitment to elevated, intentional experiences for its people.
+    </p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- QUOTES -->
+  <div class="quotes-section">
+    <div class="quotes-header reveal">
+      <p class="section-eyebrow">What leadership said</p>
+      <h2 class="section-title">The reception</h2>
+    </div>
+
+    <div class="quotes-grid">
+
+      <div class="quote-block reveal">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">
+          There hasn't been an event at ELC like this in a long time.
+        </p>
+        <div class="quote-attr">
+          <div class="quote-rule"></div>
+          <span class="quote-name">Gerardette P. · Estée Lauder Companies</span>
+        </div>
+      </div>
+
+      <div class="quote-block reveal">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">
+          He created something very unique for the North America team, and I know how special that makes them feel.
+        </p>
+        <div class="quote-attr">
+          <div class="quote-rule"></div>
+          <span class="quote-name">Sara K. · Estée Lauder Companies</span>
+        </div>
+      </div>
+
+      <div class="quote-block reveal">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">
+          Javier has so much potential, and when you unlock that in somebody and watch them grow, it's the best feeling as a leader and as a boss — to see people spread their wings.
+        </p>
+        <div class="quote-attr">
+          <div class="quote-rule"></div>
+          <span class="quote-name">Kendal A. · SVP, Estée Lauder Companies</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a href="conference.html" class="next-project reveal">
+    <div>
+      <p class="next-label">Next project</p>
+      <p class="next-title">Branded Conference Environment →</p>
+    </div>
+    <span class="next-arrow">→</span>
+  </a>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Javier Skipper</span>
+  <span class="footer-copy">© 2025 · Experiential Creative Director</span>
+</footer>
+
+<script>
+// Scroll reveal
+const els = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+els.forEach(el => io.observe(el));
+
+// Stagger reveals within grids
+document.querySelectorAll('.grid-2, .grid-3, .objectives').forEach(grid => {
+  grid.querySelectorAll('.img-frame, .objective').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+  });
+});
+</script>
+
+</body>
+</html>
