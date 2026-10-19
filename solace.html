@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solace — Javier Skipper</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --void:      #f8f4ee;
+  --deep:      #f0e8d8;
+  --stone:     #e4d8c4;
+  --amber:     #7a5218;
+  --amber-lt:  #c8943a;
+  --amber-dim: #b07a38;
+  --linen:     #1e1408;
+  --linen-dim: #5a4020;
+  --dust:      #c8b89a;
+  --rule:      #d8ccb8;
+  --dusk:      #3a4a6a;
+  --terra:     #8a4a28;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--void);
+  color: var(--linen);
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  padding: 1.25rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 100;
+  background: rgba(248,244,238,.97);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-back {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--amber); text-decoration: none; transition: gap .3s;
+}
+.nav-back:hover { gap: 14px; }
+.nav-back::before { content: '←'; font-size: 12px; }
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 14px;
+  letter-spacing: .22em; color: var(--linen-dim);
+  text-decoration: none; text-transform: uppercase;
+}
+.nav-project { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--dust); }
+
+/* ── REVEAL ──────────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s ease, transform 1s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── HERO ────────────────────────────────────────────────────────── */
+.hero { width: 100%; position: relative; margin-top: 0; overflow: hidden; height: 88vh; }
+.hero img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: center 42%;
+}
+.hero-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top,
+    rgba(248,244,238,1) 0%,
+    rgba(248,244,238,1) 44%,
+    rgba(248,244,238,.85) 64%,
+    rgba(248,244,238,.35) 84%,
+    transparent 100%);
+  padding: 5rem 4rem 4rem;
+}
+.hero-eyebrow {
+  font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: .75rem;
+  text-shadow: 0 1px 12px rgba(248,244,238,.9);
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: clamp(36px, 5.5vw, 68px);
+  line-height: 1.05; color: var(--linen); margin-bottom: .5rem;
+  text-shadow: 0 1px 20px rgba(248,244,238,.8);
+  letter-spacing: .02em;
+}
+.hero-sub { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--linen-dim); }
+
+/* ── CONTENT ─────────────────────────────────────────────────────── */
+.content { max-width: 960px; margin: 0 auto; padding: 0 3rem 6rem; }
+
+/* ── META ────────────────────────────────────────────────────────── */
+.meta-block {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; padding: 3rem 0;
+  border-bottom: 1px solid var(--rule); margin-bottom: 4rem;
+}
+.meta-label { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--dust); margin-bottom: .5rem; }
+.meta-value { font-size: 13px; color: var(--linen-dim); font-weight: 300; line-height: 1.5; }
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────────────── */
+.section-eyebrow { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--amber); margin-bottom: .75rem; }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(24px, 3vw, 36px);
+  color: var(--linen); margin-bottom: 1.5rem; line-height: 1.2;
+}
+.section-body { font-size: 13px; line-height: 1.9; color: var(--linen-dim); font-weight: 300; max-width: 640px; margin-bottom: 1rem; }
+.section-rule { border: none; border-top: 1px solid var(--rule); margin: 4rem 0; }
+
+/* ── LIGHT ARC STRIP ─────────────────────────────────────────────── */
+.arc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+.arc-cell { background: var(--void); padding: 1.5rem 1.25rem; }
+.arc-bar { width: 28px; height: 2px; margin-bottom: .9rem; }
+.arc-label { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--dust); margin-bottom: .4rem; }
+.arc-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--linen); margin-bottom: .5rem; }
+.arc-note { font-size: 11px; line-height: 1.75; color: var(--linen-dim); font-weight: 300; }
+
+/* ── CHAPTER ─────────────────────────────────────────────────────── */
+.chapter { margin-bottom: 4rem; }
+.chapter-header {
+  display: flex; align-items: baseline; gap: 1.5rem;
+  padding-bottom: 1rem; margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.chapter-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--amber-dim); flex-shrink: 0; }
+.chapter-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(20px, 2.5vw, 28px); color: var(--linen); }
+.chapter-desc { font-size: 12px; line-height: 1.85; color: var(--linen-dim); font-weight: 300; margin-bottom: 2rem; max-width: 620px; }
+
+/* ── IMAGE BLOCKS ────────────────────────────────────────────────── */
+.img-block { line-height: 0; background: var(--stone); }
+.img-block img { width: 100%; height: auto; display: block; }
+
+/* ── GRIDS ───────────────────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1.5rem 0; align-items: start; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 1.5rem 0; align-items: start; }
+.full-width { margin: 1.5rem 0; }
+
+/* ── PROJECT LABEL ───────────────────────────────────────────────── */
+.project-label {
+  font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dust); margin-top: 10px; font-style: italic;
+  padding-bottom: 1rem;
+}
+
+/* ── PULL QUOTE ──────────────────────────────────────────────────── */
+.pull {
+  border-left: 3px solid var(--amber-lt);
+  padding: 1.5rem 2rem; margin: 3rem 0;
+  background: var(--deep);
+}
+.pull p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(17px, 2.2vw, 22px); font-style: italic;
+  line-height: 1.6; color: var(--linen);
+}
+
+/* ── CREDITS ─────────────────────────────────────────────────────── */
+.credits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem 0; }
+.credit-label { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--dust); margin-bottom: .4rem; }
+.credit-value { font-size: 12px; color: var(--linen-dim); font-weight: 300; }
+
+/* ── NEXT ────────────────────────────────────────────────────────── */
+.next-project {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 3rem 0; border-top: 1px solid var(--rule);
+  text-decoration: none; transition: opacity .3s;
+}
+.next-project:hover { opacity: .7; }
+.next-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--dust); margin-bottom: .5rem; }
+.next-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 24px; color: var(--linen); font-style: italic; }
+.next-arrow { font-size: 28px; color: var(--amber-dim); }
+
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer { padding: 2rem 3rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; }
+.footer-name { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber-dim); }
+.footer-copy { font-size: 9px; color: var(--dust); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-project { display: none; }
+  .hero { height: 72vh; }
+  .hero-overlay { padding: 3rem 1.5rem 2rem; }
+  .content { padding: 0 1.5rem 4rem; }
+  .meta-block { grid-template-columns: 1fr 1fr; }
+  .arc { grid-template-columns: 1fr; }
+  .credits { grid-template-columns: 1fr; gap: 1.25rem; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .pull { padding: 1.25rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back">All Projects</a>
+  <a href="index.html" class="nav-logo">Javier Skipper</a>
+  <span class="nav-project">Solace</span>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HERO                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <img src="images/solace-hero.jpg" alt="Solace, the circle at golden hour, Alpine California">
+  <div class="hero-overlay">
+    <p class="hero-eyebrow">Alpine, California · September 12, 2026</p>
+    <h1 class="hero-title">Solace</h1>
+    <p class="hero-sub">A day built around the turning of the light.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- CONTENT                                                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="content">
+
+  <!-- META -->
+  <div class="meta-block reveal">
+    <div>
+      <div class="meta-label">Project</div>
+      <div class="meta-value">Solace</div>
+    </div>
+    <div>
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Creative Experiential Director</div>
+    </div>
+    <div>
+      <div class="meta-label">Location</div>
+      <div class="meta-value">Alpine, California</div>
+    </div>
+    <div>
+      <div class="meta-label">Date</div>
+      <div class="meta-value">September 12, 2026</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="reveal">
+    <p class="section-eyebrow">Project Overview</p>
+    <h2 class="section-title">Designing for a sun<br>that will not wait</h2>
+    <p class="section-body">
+      Solace was a single day gathering on a hilltop property in Alpine, California. Guests arrived in full afternoon sun, moved through a seated circle at golden hour, and ended the night in darkness with the valley lit below. Because the pavilion is open on all four sides, the light inside it changes completely over seven hours. Designing Solace meant treating afternoon, dusk and dark as three distinct rooms that happen to share one floor.
+    </p>
+  </div>
+
+  <!-- THE LIGHT ARC -->
+  <div class="arc reveal">
+    <div class="arc-cell">
+      <div class="arc-bar" style="background: var(--amber-lt);"></div>
+      <div class="arc-label">Phase One</div>
+      <div class="arc-name">Afternoon</div>
+      <p class="arc-note">Hard overhead sun and open views. Design reads as texture and color.</p>
+    </div>
+    <div class="arc-cell">
+      <div class="arc-bar" style="background: var(--terra);"></div>
+      <div class="arc-label">Phase Two</div>
+      <div class="arc-name">Golden Hour</div>
+      <p class="arc-note">Side light through the arches. The circle forms around the center mandala.</p>
+    </div>
+    <div class="arc-cell">
+      <div class="arc-bar" style="background: var(--dusk);"></div>
+      <div class="arc-label">Phase Three</div>
+      <div class="arc-name">Dark</div>
+      <p class="arc-note">Candlelight, string lights and the valley below. Sound carries the room.</p>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ── 01 ARRIVAL ─────────────────────────────────────────────── -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num">01</span>
+      <h3 class="chapter-title">Arrival</h3>
+    </div>
+    <p class="chapter-desc">
+      Guests come up through old oaks and arrive from below, with the pavilion backlit and the valley opening behind it. Nothing was added here. The work was routing people through it.
+    </p>
+    <div class="full-width">
+      <div class="img-block">
+        <img src="images/solace-arrival.jpg" alt="Late afternoon sun through the oaks above the adobe pavilion">
+      </div>
+    </div>
+    <p class="project-label">The approach · Alpine, California</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ── 02 THE CONTAINER ───────────────────────────────────────── -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num">02</span>
+      <h3 class="chapter-title">The Container</h3>
+    </div>
+    <p class="chapter-desc">
+      Layered rugs and sheepskins define where the circle sits without a single sign. The arches frame the valley on three sides and were left completely clear.
+    </p>
+
+    <div class="grid-2">
+      <div class="img-block">
+        <img src="images/solace-space-1.jpg" alt="The empty pavilion before guests, light through the arches">
+      </div>
+      <div class="img-block">
+        <img src="images/solace-space-2.jpg" alt="Layered rugs, sheepskins and floor cushions in afternoon light">
+      </div>
+    </div>
+
+    <div class="full-width">
+      <div class="img-block">
+        <img src="images/solace-space-3.jpg" alt="The full floor plan laid out, facilitator with frame drum, mountains beyond">
+      </div>
+    </div>
+    <p class="project-label">The floor, set and empty · before guests</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ── 03 HOSPITALITY ─────────────────────────────────────────── -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num">03</span>
+      <h3 class="chapter-title">Hospitality</h3>
+    </div>
+    <p class="chapter-desc">
+      A restrained welcome table inside the cool of the white interior. Coffee service stayed outside the pavilion so the designed floor was never disturbed.
+    </p>
+    <div class="grid-2">
+      <div class="img-block">
+        <img src="images/solace-welcome.jpg" alt="Welcome table with citrus, pampas and silver vessel in the white adobe interior">
+      </div>
+      <div class="img-block">
+        <img src="images/solace-coffee.jpg" alt="On-site coffee service under the oaks">
+      </div>
+    </div>
+    <p class="project-label">Welcome table and on-site service</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ── 04 THE CIRCLE ──────────────────────────────────────────── -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num">04</span>
+      <h3 class="chapter-title">The Circle</h3>
+    </div>
+    <p class="chapter-desc">
+      The center mandala was built hours earlier and sat almost unseen through the afternoon. As the sun drops it becomes the brightest thing on the floor.
+    </p>
+    <div class="full-width">
+      <div class="img-block">
+        <img src="images/solace-circle.jpg" alt="Golden hour, facilitator framed in the archway, guests seated in the circle">
+      </div>
+    </div>
+    <p class="project-label">Golden hour · the circle</p>
+  </div>
+
+  <div class="pull reveal">
+    <p>The design does not announce the transition. The light does.</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ── 05 THE LAND ────────────────────────────────────────────── -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num">05</span>
+      <h3 class="chapter-title">The Land</h3>
+    </div>
+    <p class="chapter-desc">
+      The property keeps horses a short walk from the pavilion. Built into the day as open, unstructured time before the evening asks everyone to sit still.
+    </p>
+    <div class="grid-2">
+      <div class="img-block">
+        <img src="images/solace-land-1.jpg" alt="Guest at the paddock rail with one of the property's horses">
+      </div>
+      <div class="img-block">
+        <img src="images/solace-land-2.jpg" alt="A lighter moment at the paddock during the open interval">
+      </div>
+    </div>
+    <p class="project-label">The paddock · open interval</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ── 06 THE SOUND JOURNEY ───────────────────────────────────── -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num">06</span>
+      <h3 class="chapter-title">The Sound Journey</h3>
+    </div>
+    <p class="chapter-desc">
+      Bowls were placed and tuned in daylight so nothing crossed the floor once the room had settled. The session runs from blue hour into full dark.
+    </p>
+
+    <div class="full-width">
+      <div class="img-block">
+        <img src="images/solace-sound-1.jpg" alt="Crystal bowls placed and tuned in daylight, hours ahead">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="img-block">
+        <img src="images/solace-sound-2.jpg" alt="Blue hour, the sound session begins">
+      </div>
+      <div class="img-block">
+        <img src="images/solace-sound-3.jpg" alt="Full dark, candlelight, string lights and the bowls">
+      </div>
+    </div>
+    <p class="project-label">Daylight placement · blue hour · full dark</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ── 07 CLOSE ───────────────────────────────────────────────── -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num">07</span>
+      <h3 class="chapter-title">Close of Day</h3>
+    </div>
+    <p class="chapter-desc">
+      The floor that had been a circle becomes a place to lie down. Nothing is cleared while guests are still in the room.
+    </p>
+    <div class="full-width">
+      <div class="img-block">
+        <img src="images/solace-close.jpg" alt="Late night, cushions, candlelight and the valley lights below">
+      </div>
+    </div>
+    <p class="project-label">Close of day · the valley below</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- DESIGN POV -->
+  <div class="reveal">
+    <p class="section-eyebrow">Design POV</p>
+    <h2 class="section-title">An open room is a<br>timing problem</h2>
+    <p class="section-body">
+      Indoors you control the light, so you control the pace. Under a structure with four open sides, the light controls you, and it moves whether or not the day is ready.
+    </p>
+    <p class="section-body">
+      Most of the work on Solace happened before anyone arrived. Deciding what each element would look like in three different light conditions, then placing it once so it never had to be touched again.
+    </p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- CREDITS -->
+  <div class="reveal">
+    <p class="section-eyebrow">Credits</p>
+    <div class="credits">
+      <div>
+        <div class="credit-label">Creative Experiential Direction</div>
+        <div class="credit-value">Javier Skipper</div>
+      </div>
+      <div>
+        <div class="credit-label">Photography</div>
+        <div class="credit-value">Safi Jafri Films</div>
+      </div>
+      <div>
+        <div class="credit-label">Location</div>
+        <div class="credit-value">Private residence · Alpine, California</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a href="divine-retreat.html" class="next-project reveal">
+    <div>
+      <p class="next-label">Next project</p>
+      <p class="next-title">Divine Spring Awakening Retreat →</p>
+    </div>
+    <span class="next-arrow">→</span>
+  </a>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Javier Skipper</span>
+  <span class="footer-copy">© 2026 · Experiential Creative Director</span>
+</footer>
+
+<script>
+const els = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+els.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
